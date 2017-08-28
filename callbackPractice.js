@@ -31,6 +31,11 @@ first(names, function(firstName){
   return firstName;
 });
 
+function first(arr, cb){
+  var result = arr[0];
+  cb(result);
+}
+
 
 
 // 2. Write a function called last which returns the last item of the array using a callback function.
@@ -44,6 +49,11 @@ last(names, function(lastName){
   return lastName;
 });
 
+function last(arr, cb){
+  var result = arr[arr.length - 1];
+  cb(result);
+}
+
 
 
 // 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
@@ -55,6 +65,11 @@ last(names, function(lastName){
 multiply(4, 3, function(answer){
   console.log('The answer is ' + answer); //should console.log 12
 })
+
+function multiply(num1, num2, cb){
+  var result = num1 * num2;
+  cb(result);
+}
 
 
 
@@ -75,6 +90,17 @@ contains(names, 'Colt', function(result){
   }
 });
 
+function contains(arr, name, cb){
+  var result;
+  if(arr.includes(name)){
+    result = true;
+  }else{
+    result = false;
+  }
+  cb(result);
+}
+
+
 
 
 // 5. Write a function called uniq that takes the names array and removes all duplicates.
@@ -88,6 +114,19 @@ uniq(names, function(uniqArr){
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
 });
 
+function uniq(arr, cb){
+  var newArr = [];
+  arr.sort();
+  for(var i=0; i<arr.length; i++){
+    if(arr[i] === arr[i + 1]){
+      continue;
+    }else{
+      newArr.push(arr[i]);
+    }
+  }
+  cb(newArr);
+}
+
 
 // 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 
@@ -98,6 +137,15 @@ uniq(names, function(uniqArr){
 each(names, function(item, indice){
   console.log('The item in the ' + indice + ' position is ' + item)
 });
+
+function each(arr, cb){
+  arr.map(function(prop){
+    var item = prop;
+    var index = arr.indexOf(prop);
+    cb(item, index);
+  });
+}
+
 
 
 
@@ -132,3 +180,31 @@ var users = [
 getUserById(users, '16t', function(user){
   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
 });
+
+
+function getUserById(arr, name, cb){
+  var user;
+  for(var i in arr){
+    for(var j in arr[i]){
+      if(arr[i][j] === name){
+        user = arr[i];
+        cb(user);
+
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
