@@ -19,11 +19,14 @@ and what you should write is the sayHi function that makes the code above work,
     
 */
 
-
 // 1. Write a function called first that returns the first item of the array using a callback function
 
   // Code Here
 
+  function first(arr, cb){
+    let firstElem = arr[0];
+    cb(firstElem);
+  }
   
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
@@ -31,47 +34,32 @@ first(names, function(firstName){
   return firstName;
 });
 
-function first(arr, cb){
-  var result = arr[0];
-  cb(result);
-}
-
-
-
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
   //Code Here
 
-
+  function last(arr, cb){
+    let lastElem = arr[arr.length - 1];
+    cb(lastElem);
+  }
 
 last(names, function(lastName){
   console.log('The last name in names is ' + lastName);
   return lastName;
 });
 
-function last(arr, cb){
-  var result = arr[arr.length - 1];
-  cb(result);
-}
-
-
-
 // 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
 
   //Code Here
 
-
+  function multiply(num1, num2, cb){
+    let result = num1 * num2;
+    cb(result);
+  }
 
 multiply(4, 3, function(answer){
   console.log('The answer is ' + answer); //should console.log 12
 })
-
-function multiply(num1, num2, cb){
-  var result = num1 * num2;
-  cb(result);
-}
-
-
 
 // 4. Write a function called contains that checks if a name exists in an array. 
 // If it does, invoke the callback with true as an argument. 
@@ -79,8 +67,12 @@ function multiply(num1, num2, cb){
 
   //Code Here 
 
-
-
+  function contains(arr, val, cb){
+    if(arr.includes(val)){
+      return cb(true);
+    }
+    return cb(false);
+  }
 
 contains(names, 'Colt', function(result){
   if(result === true){
@@ -90,71 +82,48 @@ contains(names, 'Colt', function(result){
   }
 });
 
-function contains(arr, name, cb){
-  var result;
-  if(arr.includes(name)){
-    result = true;
-  }else{
-    result = false;
-  }
-  cb(result);
-}
-
-
-
-
 // 5. Write a function called uniq that takes the names array and removes all duplicates.
 // Invoke the callback with the modified array as an argument.
 
   //Code Here
 
-
+  function uniq(arr, cb){
+   let result = arr.filter((e, i, self) => {
+      return i === self.indexOf(e);
+    })
+    cb(result);
+  }
 
 uniq(names, function(uniqArr){
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
 });
 
-function uniq(arr, cb){
-  var newArr = [];
-  arr.sort();
-  for(var i=0; i<arr.length; i++){
-    if(arr[i] === arr[i + 1]){
-      continue;
-    }else{
-      newArr.push(arr[i]);
-    }
-  }
-  cb(newArr);
-}
-
-
 // 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 
     //Code Here 
 
-
+    function each(arr, cb){
+      for(let i=0; i<arr.length; i++){
+        cb(arr[i], i);
+      }
+    }
 
 each(names, function(item, indice){
   console.log('The item in the ' + indice + ' position is ' + item)
 });
-
-function each(arr, cb){
-  arr.map(function(prop){
-    var item = prop;
-    var index = arr.indexOf(prop);
-    cb(item, index);
-  });
-}
-
-
-
 
 // 7. Write a function called getUserById that looks at the array of user objects (users) and searches for a user by ID.
 // When the correct user object is found, invoke the callback with the user object as an argument.
 
 // Code here
 
-
+function getUserById(arr, id, cb){
+  for(let i in arr){
+    if(arr[i].id === id){
+      cb(arr[i]);
+    }
+  }
+}
 
 var users = [
   {
@@ -181,19 +150,6 @@ getUserById(users, '16t', function(user){
   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
 });
 
-
-function getUserById(arr, name, cb){
-  var user;
-  for(var i in arr){
-    for(var j in arr[i]){
-      if(arr[i][j] === name){
-        user = arr[i];
-        cb(user);
-
-      }
-    }
-  }
-}
 
 
 
